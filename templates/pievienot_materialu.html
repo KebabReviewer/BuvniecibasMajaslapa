@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Pievienot Materialu</title>
+    </head>
+    <body class= "materiali-page">
+
+        <main class="page-card">
+            <h1>Buvnieciba</h1>
+            <h2>Pievienot Materialu</h2>
+
+            <section class="form-section">
+                <form method="post" class="edit-form">
+                    <input type="text" name="materiala_nosaukums" placeholder="Nosaukums" required>
+                    <input type="number" name="cena" placeholder="Cena" required>
+                    <input type="number" name="daudzums" placeholder="Daudzums" required>
+                    <button class="link" type="submit">Pievienot</button>
+                </form>
+            </section>
+
+            <a class="home_button" href="{{ url_for('rediget_materialus') }}">Atpakal uz redigesanu</a>
+        </main>
+    </body>
+</html>

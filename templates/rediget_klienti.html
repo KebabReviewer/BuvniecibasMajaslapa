@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Rediget Klientus</title>
+    </head>
+    <body class="client-page">
+        <main class="page-card2">
+            <h1>Būvniecība</h1>
+            <h2>Rediģēt Klientus</h2>
+
+            <section class="form-section">
+                <h3>Pievienot klientu</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="add">
+                    <input type="text" name="klienta_vards" placeholder="Vārds" required>
+                    <input type="text" name="klienta_uzvards" placeholder="Uzvārds" required>
+                    <input type="text" name="klienta_telefons" placeholder="Telefons" required>
+                    <input type="email" name="klienta_epasts" placeholder="Epasts (nav obligāts)" >
+                    <button class="link" type="submit">Pievienot</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Dzest klientu</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="delete">
+                    <select name="id_klients" required>
+                        <option value="" disabled selected>Izvēlies klientu</option>
+                        {% for klients in klienti %}
+                        <option value="{{ klients.id_klients }}">
+                            {{ klients.klienta_vards }} {{ klients.klienta_uzvards }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button class="home_button" type="submit">Dzēst</button>
+                </form>
+            </section>
+
+            <a class="home_button" href="{{ url_for('klientu_saraksts') }}">Atpakaļ uz sarakstu</a>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Būvniecība</title>
+    </head>
+    <body class="objekti-page">
+        <main class="page-card">
+            <h1>Būvniecība</h1>
+            <h2>Objektu saraksts</h2>
+            <ul class="data-list">
+                {% for objekts in objekti %}
+                <li>
+                    {{ objekts.Adrese }} - {{ objekts.Objekta_tips }} - {{ objekts.Status }}
+                    <hr>
+                    Sākuma datums: {{ objekts.Sakums_datums }}
+                </li>
+                {% else %}
+                <li>Objektu saraksts ir tukss.</li>
+                {% endfor %}
+            </ul>
+            <a class="link" href="{{ url_for('objekta_materiali') }}">Objektu materiāli</a>
+            <a class="link" href="{{ url_for('rediget_objektus') }}">Rediģēt objektus</a>
+            <a class="home_button" href="{{ url_for('index') }}">Atpakaļ</a>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Pievienot Darbu</title>
+    </head>
+    <body class="darbi-page">
+        <main class="page-card2">
+            <h1>Būvniecība</h1>
+            <h2>Pievienot Darbu</h2>
+
+            <section class="form-section">
+                <h3>Ievadi jaunā darba datus</h3>
+                <form method="post" class="edit-form">
+                    <select name="id_objekts" required>
+                        <option value="" disabled selected>Izvēlies objektu</option>
+                        {% for objekts in objekti %}
+                        <option value="{{ objekts.id_objekts }}">
+                            {{ objekts.Adrese }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <select name="id_darbinieks" required>
+                        <option value="" disabled selected>Izvēlies darbinieku</option>
+                        {% for darbinieks in darbinieki %}
+                        <option value="{{ darbinieks.id_darbinieks }}">
+                            {{ darbinieks.Darbinieka_vards }} {{ darbinieks.Darbinieka_uzvards }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" name="apraksts" placeholder="Apraksts" required>
+                    <input type="number" step="0.01" min="0" name="izmaksas" placeholder="Izmaksas" required>
+                    <label for="beigu_datums">Plānotais beigu datums</label>
+                    <input type="date" id="beigu_datums" name="beigu_datums" required>
+                    <button class="link" type="submit">Pievienot</button>
+                </form>
+            </section>
+
+            <a class="home_button" href="{{ url_for('darbi') }}">Atpakaļ uz darbu sarakstu</a>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Būvniecība</title>
+    </head>
+    <body class="show_y-darbinieki">
+        <div class="worker2">
+            <img src="{{ url_for('static', filename='worker2updated.jpg') }}" class = "eriks" alt="Darbinieks">
+        </div>
+        <main class="page-card2">
+            <h1 class = "darbinieki">Būvniecība</h1>
+            <h2 class = "darbinieki">Darbinieku saraksts</h2>
+            <ul class="data-list">
+                {% for darbinieks in darbinieki %}
+                <li>{{ darbinieks.Darbinieka_vards }} {{ darbinieks.Darbinieka_uzvards }} - Tel: {{ darbinieks.Darbinieka_tel }}, {{ darbinieks.Darbinieka_amats }}</li>
+                {% else %}
+                <li>Darbinieku saraksts ir tukss.</li>
+                {% endfor %}
+            </ul>
+            <a class="link" href="{{ url_for('rediget_darbinieks') }}">Rediģēt darbiniekus</a>
+            <a class="home_button" href="{{ url_for('index') }}">Atpakaļ</a>
+        </main>
+        <div class="worker3">
+            <img src="{{ url_for('static', filename='worker33.png') }}" alt="Darbinieks">
+        </div>
+    </body>
+</html>

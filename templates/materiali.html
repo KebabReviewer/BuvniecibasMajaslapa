@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Būvniecība</title>
+    </head>
+    <body class = "materiali-page">
+        <main class="page-card">
+            <h1>Būvniecība</h1>
+            <h2>Pieejamie materiāli</h2>
+            <ul class="data-list">
+                {% for materials in mats %}
+                <li>{{ materials.Materiala_nosaukums }} - {{ materials.Daudzums }} kg : {{ materials.Cena}} €/kg</li>
+                {% else %}
+                <li>Materialu saraksts ir tukss.</li>
+                {% endfor %}
+            </ul>
+            <a class="link" href="{{ url_for('rediget_materialus') }}">Rediģēt materiālus</a>
+            <a class="home_button" href="{{ url_for('index') }}">Atpakaļ</a>
+        </main>
+    </body>
+</html>

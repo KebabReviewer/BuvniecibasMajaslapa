@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="lv">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+		<title>Rediget Darbus</title>
+	</head>
+	<body class="darbi-page">
+		<main class="page-card2">
+			<h1>Būvniecība</h1>
+			<h2>Rediģēt Darbus</h2>
+
+			<section class="form-section">
+				<h3>Izvēlies darbu un maini vērtības</h3>
+				<form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="update">
+
+					<select name="darbs_rowid" id="darbs_rowid" required>
+						<option value="" disabled selected>Izvēlies darbu</option>
+						{% for darbs in darbi %}
+						<option
+							value="{{ darbs.darbs_rowid }}"
+							data-apraksts="{{ darbs.Apraksts }}"
+							data-izmaksas="{{ darbs.izmaksas }}"
+							data-beigu-datums="{{ darbs.Beigu_datums }}"
+						>
+							{{ darbs.Apraksts }}
+						</option>
+						{% endfor %}
+					</select>
+					<input type="text" id="update_apraksts" name="apraksts" placeholder="Apraksts" required>
+					<input type="number" id="update_izmaksas" step="0.01" min="0" name="izmaksas" placeholder="Izmaksas" required>
+					<label for="update_beigu_datums">Plānotais beigu datums</label>
+					<input type="date" id="update_beigu_datums" name="beigu_datums" required>
+					<button class="link" type="submit">Saglabāt izmaiņas</button>
+				</form>
+			</section>
+
+            <section class="form-section">
+                <h3>Dzēst darbu</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="delete">
+                    <select name="darbs_rowid" required>
+                        <option value="" disabled selected>Izvēlies darbu dzēšanai</option>
+                        {% for darbs in darbi %}
+                        <option value="{{ darbs.darbs_rowid }}">
+                            {{ darbs.Apraksts }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button class="home_button" type="submit">Dzēst</button>
+                </form>
+            </section>
+
+            <div class="menu">
+                <a class="link" href="{{ url_for('pievienot_darbu') }}">Pievienot darbu</a>
+            </div>
+
+			<a class="home_button" href="{{ url_for('darbi') }}">Atpakaļ uz darbu sarakstu</a>
+		</main>
+
+		<script>
+			const darbsSelect = document.getElementById("darbs_rowid");
+			const aprakstsInput = document.getElementById("update_apraksts");
+			const izmaksasInput = document.getElementById("update_izmaksas");
+			const beiguDatumsInput = document.getElementById("update_beigu_datums");
+
+			darbsSelect.addEventListener("change", function () {
+				const option = darbsSelect.options[darbsSelect.selectedIndex];
+				const apraksts = option.getAttribute("data-apraksts") || "";
+				const izmaksas = option.getAttribute("data-izmaksas") || "";
+				const beiguDatums = option.getAttribute("data-beigu-datums") || "";
+
+				if (aprakstsInput) aprakstsInput.value = apraksts;
+				if (izmaksasInput) izmaksasInput.value = izmaksas;
+				if (beiguDatumsInput) beiguDatumsInput.value = beiguDatums;
+			});
+		</script>
+	</body>
+</html>

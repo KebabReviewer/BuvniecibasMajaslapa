@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Būvniecība</title>
+    </head>
+    <body>
+        <div class="worker">
+            <img src="{{ url_for('static', filename='worker.png') }}" alt="Darbinieks">
+        </div>
+        <main class="page-card">
+            <div class="head">
+                <h1>Būvniecība</h1>
+            </div>
+            <p>Pārvaldi darbiniekus, klientus, materiālus un objektus vienuviet.</p>
+            <div class="menu">
+                <a class="link" href="/saraksts">Darbinieku saraksts</a>
+                <a class="link" href="/klienti">Klientu saraksts</a>
+                <a class="link" href="/darbi">Darbu saraksts</a>
+                <a class="link" href="/materiali">Pieejamie materiāli</a>
+                <a class="link" href="/objekti">Objektu saraksts</a>
+            </div>
+        </main>
+
+    </body>
+</html>

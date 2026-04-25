@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Pievienot Objektu</title>
+    </head>
+    <body class="objekti-page">
+        <main class="page-card">
+            <h1>Buvnieciba</h1>
+            <h2>Pievienot Objektu</h2>
+
+            <section class="form-section">
+                <form method="post" class="edit-form">
+                    <select name="id_klients" required>
+                        <option value="" disabled selected>Izvelies klientu</option>
+                        {% for klients in klienti %}
+                        <option value="{{ klients.id_klients }}">
+                            {{ klients.klienta_vards }} {{ klients.klienta_uzvards }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" name="adrese" placeholder="Adrese, pilsēta" required>
+                    <select name="objekta_tips" required>
+                        <option value="" disabled selected>Izvēlies objekta tipu</option>
+                        <option value="Privātmāja">Privātmāja</option>
+                        <option value="Dzīvoklis">Dzīvoklis</option>
+                        <option value="Komerctelpas">Komerctelpas</option>
+                        <option value="Viesnīca">Viesnīca</option>
+                        <option value="Cits">Cits</option>
+                    </select>
+                    <select name="status" required>
+                        <option value="" disabled selected>Izvēlies statusu</option>
+                        <option value="Plānots">Plānots</option>
+                        <option value="Aktīvs">Aktīvs</option>
+                        <option value="Atlikts">Atlikts</option>
+                        <option value="Pabeigts">Pabeigts</option>
+                    </select>
+                    <label for="sakums_datums">Sākuma datums</label>
+                    <input type="date" id="sakums_datums" name="sakums_datums" required>
+                    <button class="link" type="submit">Pievienot</button>
+                </form>
+            </section>
+
+            <a class="home_button" href="{{ url_for('rediget_objektus') }}">Atpakal uz redigesanu</a>
+        </main>
+    </body>
+</html>

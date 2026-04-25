@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Būvniecība</title>
+    </head>
+    <body class = "client-page">
+        <main class="page-card2">
+            <h1>Būvniecība</h1>
+            <h2>Klientu saraksts</h2>
+            <ul class="data-list">
+                {% for klients in klienti %}
+                <li>
+                    {{ klients.klienta_vards }} {{ klients.klienta_uzvards }} - Tel: {{ klients.klienta_telefons }}
+                    {% if klients.klienta_epasts %}
+                    - Email: {{ klients.klienta_epasts }}
+                    {% endif %}
+                </li>
+                {% else %}
+                <li>Klientu saraksts ir tukss.</li>
+                {% endfor %}
+            </ul>
+            <a class="link" href="{{ url_for('rediget_klienti') }}">Rediget klientus</a>
+            <a class="home_button" href="{{ url_for('index') }}">Atpakaļ</a>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Objektu Materiali</title>
+    </head>
+    <body class="materiali-page">
+        <main class="page-card2">
+            <h1>Būvniecība</h1>
+            <h2>Objektu Materiāli</h2>
+
+            <section class="form-section">
+                <h3>Esošās piesaistes</h3>
+                <ul class="data-list">
+                    {% for saite in saites %}
+                    <li>
+                        Objekts: {{ saite.Adrese }}<br>
+                        Materiāls: {{ saite.Materiala_nosaukums }}<br>
+                        Daudzums: {{ saite.daudzums }} kg
+                    </li>
+                    {% else %}
+                    <li>Piesaistes vēl nav pievienotas.</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="form-section">
+                <h3>Piesaistīt materiālu objektam</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="add">
+                    <select name="id_objekts" required>
+                        <option value="" disabled selected>Izvēlies objektu</option>
+                        {% for objekts in objekti %}
+                        <option value="{{ objekts.id_objekts }}">{{ objekts.Adrese }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="id_materials" required>
+                        <option value="" disabled selected>Izvēlies materiālu</option>
+                        {% for materials in materiali %}
+                        <option value="{{ materials.id_materials }}">{{ materials.Materiala_nosaukums }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" name="daudzums" min="1" step="1" placeholder="Daudzums" required>
+                    <button class="link" type="submit">Saglabāt</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Dzēst piesaisti</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="delete">
+                    <select name="id_objekts" required>
+                        <option value="" disabled selected>Izvēlies objektu</option>
+                        {% for saite in saites %}
+                        <option value="{{ saite.id_objekts }}">{{ saite.Adrese }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="id_materials" required>
+                        <option value="" disabled selected>Izvēlies materiālu</option>
+                        {% for saite in saites %}
+                        <option value="{{ saite.id_materials }}">{{ saite.Materiala_nosaukums }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="home_button" type="submit">Dzēst</button>
+                </form>
+            </section>
+
+            <a class="home_button" href="{{ url_for('objekti') }}">Atpakaļ uz objektiem</a>
+        </main>
+    </body>
+</html>

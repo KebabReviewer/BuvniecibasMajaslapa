@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Rediget Darbiniekus</title>
+    </head>
+    <body class="darbinieki">
+        <div class="worker2">
+            <img src="{{ url_for('static', filename='worker2updated.jpg') }}" class = "eriks" alt="Darbinieks">
+        </div>
+
+        <main class="page-card2">
+            <h1 class="darbinieki">Būvniecība</h1>
+            <h2 class = "darbinieki">Rediģēt Darbiniekus</h2>
+
+            <section class="form-section">
+                <h3>Pievienot darbinieku</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="add">
+                    <input type="text" name="darbinieka_vards" placeholder="Vārds" required>
+                    <input type="text" name="darbinieka_uzvards" placeholder="Uzvārds" required>
+                    <input type="text" name="darbinieka_amats" placeholder="Amats" required>
+                    <input type="text" name="darbinieka_tel" placeholder="Telefons" required>
+                    <button class="link" type="submit">Pievienot</button>
+                </form>
+            </section>
+
+            <section class="form-section">
+                <h3>Dzēst darbinieku</h3>
+                <form method="post" class="edit-form">
+                    <input type="hidden" name="action" value="delete">
+                    <select name="id_darbinieks" required>
+                        <option value="" disabled selected>Izvēlies darbinieku</option>
+                        {% for darbinieks in darbinieki %}
+                        <option value="{{ darbinieks.id_darbinieks }}">
+                            {{ darbinieks.Darbinieka_vards }} {{ darbinieks.Darbinieka_uzvards }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button class="home_button" type="submit">Dzēst</button>
+                </form>
+            </section>
+            <a class="home_button" href="{{ url_for('saraksts') }}">Atpakaļ uz sarakstu</a>
+        </main>
+        <div class="worker3">
+            <img src="{{ url_for('static', filename='worker33.png') }}" alt="Darbinieks">
+        </div>
+    </body>
+</html>

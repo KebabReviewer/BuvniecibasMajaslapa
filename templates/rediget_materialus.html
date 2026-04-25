@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Rediget Materialus</title>
+    </head>
+    <body class = "materiali-page">
+        <main class="page-card">
+            <h1>Buvnieciba</h1>
+            <h2>Rediget Materialus</h2>
+
+            <section class="form-section">
+                <h3>Izvēlies materiālu un maini vērtības</h3>
+                <form method="post" class="edit-form">
+                    <select name="id_materials" id="id_materials" required>
+                        <option value="" disabled selected>Izvēlies materiālu</option>
+                        {% for materials in materiali %}
+                        <option
+                            value="{{ materials.id_materials }}"
+                            data-cena="{{ materials.Cena }}"
+                            data-daudzums="{{ materials.Daudzums }}"
+                        >
+                            {{ materials.Materiala_nosaukums }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" name="cena" placeholder="Jauna cena" required>
+                    <input type="number" name="daudzums" placeholder="Jauns daudzums" required>
+                    <button class="link" type="submit">Saglabāt izmaiņas</button>
+                </form>
+            </section>
+
+            <div class="menu">
+                <a class="link" href="{{ url_for('pievienot_materialu') }}">Pievienot materiālu</a>
+                <a class="home_button" href="{{ url_for('dzest_materialu') }}">Dzēst materiālu</a>
+            </div>
+
+            <a class="home_button" href="{{ url_for('materiali') }}">Atpakaļ uz materiāliem</a>
+        </main>
+        <script>
+            const materialSelect = document.getElementById("id_materials");
+            const cenaInput = document.querySelector('input[name="cena"]');
+            const daudzumsInput = document.querySelector('input[name="daudzums"]');
+
+            materialSelect.addEventListener("change", function () {
+                const option = materialSelect.options[materialSelect.selectedIndex];
+                const cena = option.getAttribute("data-cena") || "-";
+                const daudzums = option.getAttribute("data-daudzums") || "";
+
+                if (cenaInput) {
+                    cenaInput.value = cena !== "-" ? cena : "";
+                }
+                if (daudzumsInput) {
+                    daudzumsInput.value = daudzums;
+                }
+            });
+        </script>
+    </body>
+</html>

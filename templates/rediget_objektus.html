@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="lv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+        <title>Rediget Objektus</title>
+    </head>
+    <body class="objekti-page">
+        <main class="page-card">
+            <h1>Būvniecība</h1>
+            <h2>Rediģēt Objektus</h2>
+
+            <section class="form-section">
+                <h3>Izvēlies objektu un maini vērtības</h3>
+                <form method="post" class="edit-form">
+                    <select name="id_objekts" id="id_objekts" required>
+                        <option value="" disabled selected>Izvēlies objektu</option>
+                        {% for objekts in objekti %}
+                        <option
+                            value="{{ objekts.id_objekts }}"
+                            data-adrese="{{ objekts.Adrese }}"
+                            data-tips="{{ objekts.Objekta_tips }}"
+                            data-status="{{ objekts.Status }}"
+                            data-sakums-datums="{{ objekts.Sakums_datums }}"
+                        >
+                            {{ objekts.Adrese }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" name="adrese" placeholder="Adrese, pilsēta" required>
+                    <select name="objekta_tips" required>
+                        <option value="" disabled selected>Izvēlies objekta tipu</option>
+                        <option value="Privātmāja">Privātmāja</option>
+                        <option value="Dzīvoklis">Dzīvoklis</option>
+                        <option value="Komerctelpas">Komerctelpas</option>
+                        <option value="Viesnīca">Viesnīca</option>
+                        <option value="Cits">Cits</option>
+                    </select>
+                    <select name="status" required>
+                        <option value="" disabled selected>Izvēlies statusu</option>
+                        <option value="Plānots">Plānots</option>
+                        <option value="Aktīvs">Aktīvs</option>
+                        <option value="Atlikts">Atlikts</option>
+                        <option value="Pabeigts">Pabeigts</option>
+                    </select>
+                    <label for="sakums_datums">Sākuma datums</label>
+                    <input type="date" id="sakums_datums" name="sakums_datums" required>
+                    <button class="link" type="submit">Saglabāt izmaiņas</button>
+                </form>
+            </section>
+
+            <div class="menu">
+                <a class="link" href="{{ url_for('pievienot_objektu') }}">Pievienot objektu</a>
+                <a class="home_button" href="{{ url_for('dzest_objektu') }}">Dzēst objektu</a>
+            </div>
+
+            <a class="home_button" href="{{ url_for('objekti') }}">Atpakaļ uz objektiem</a>
+        </main>
+
+        <script>
+            const objektsSelect = document.getElementById("id_objekts");
+            const adreseInput = document.querySelector('input[name="adrese"]');
+            const tipsInput = document.querySelector('select[name="objekta_tips"]');
+            const statusInput = document.querySelector('select[name="status"]');
+            const sakumsDatumsInput = document.querySelector('input[name="sakums_datums"]');
+
+            objektsSelect.addEventListener("change", function () {
+                const option = objektsSelect.options[objektsSelect.selectedIndex];
+                const adrese = option.getAttribute("data-adrese") || "";
+                const tips = option.getAttribute("data-tips") || "";
+                const status = option.getAttribute("data-status") || "";
+                const sakumsDatums = option.getAttribute("data-sakums-datums") || "";
+
+                if (adreseInput) adreseInput.value = adrese;
+                if (tipsInput) tipsInput.value = tips;
+                if (statusInput) statusInput.value = status;
+                if (sakumsDatumsInput) sakumsDatumsInput.value = sakumsDatums;
+            });
+        </script>
+    </body>
+</html>
